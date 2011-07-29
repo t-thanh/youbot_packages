@@ -2,7 +2,7 @@
 # Created:			Jan Paulus on 17 Aug 2010
 #
 
-YOUBOT_DRIVER_VERSION=	0.7
+YOUBOT_DRIVER_VERSION=	0.8
 DISTNAME=		oodl-youbot-${YOUBOT_DRIVER_VERSION}
 PKGNAME=		oodl-youbot-${YOUBOT_DRIVER_VERSION}
 CATEGORIES=		hardware
@@ -20,7 +20,6 @@ CMAKE_ARGS+=		-DSELECTED_DRIVER=youbot
 CMAKE_ARGS+=		-DSOEM_PATH=${PREFIX.soem}
 #CMAKE_ARGS+=		-DRUDECONFIG_PATH=${PREFIX.rudeconfig}
 #CMAKE_ARGS+=		-DBOOST_LOG_PATH=${PREFIX.boost-log}
-
 
 include ../../devel/boost-headers/depend.mk
 include ../../devel/boost-libs/depend.mk

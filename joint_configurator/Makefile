@@ -2,9 +2,9 @@
 # Created:			Jan Paulus on 10 May 2011
 #
 
-JOYPAD_CONTROL_VERSION=	1
-DISTNAME=		joint_configurator-${JOYPAD_CONTROL_VERSION}
-PKGNAME=		joint_configurator-${JOYPAD_CONTROL_VERSION}
+JOINT_CONFIGURATOR_VERSION=	1
+DISTNAME=		joint_configurator-${JOINT_CONFIGURATOR_VERSION}
+PKGNAME=		joint_configurator-${JOINT_CONFIGURATOR_VERSION}
 CATEGORIES=		hardware
 MASTER_SITES=		https://github.com/youbot/youbot_applications/wiki/
 MASTER_REPOSITORY= 	git git://github.com/youbot/youbot_applications.git
@@ -17,7 +17,13 @@ LICENSE=		gnu-lgpl-v2.1 modified-bsd
 USE_LANGUAGES=		c c++
 
 CONFIGURE_DIRS=		${WRKSRC}/joint_configurator
-BUILD_DIRS = ${WRKSRC}/joint_configurator
+BUILD_DIRS = 			${WRKSRC}/joint_configurator
+CMAKE_ARGS+=			-DJOINT_CONFIGURATOR_CONFIG_DIR=${ROBOTPKG_BASE}/config
+
+
+post-install:
+	${RUN}cd ${ROBOTPKG_BASE}/bin &&		\
+	sudo setcap cap_net_raw+ep ./youBot_JointConfigurator
 
 include ../oodl-youbot/depend.mk
 include ../../mk/sysdep/cmake.mk
