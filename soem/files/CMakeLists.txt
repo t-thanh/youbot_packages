@@ -1,17 +1,15 @@
 cmake_minimum_required(VERSION 2.4.6)
 
+SET(CMAKE_C_FLAGS_DEBUG "-fPIC -Wall -g")
+#SET(CMAKE_CXX_FLAGS_DEBUG "-fPIC -O0 -g")
 
+link_libraries( pthread)
 
+include_directories(
+  src
+)
 
-#set the default path for built executables to the "bin" directory
-#set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-#set the default path for built libraries to the "lib" directory
-#set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
-
-
-
-
-ADD_LIBRARY(soem 
+ADD_LIBRARY(soem STATIC
   src/ethercatbase.c 
   src/ethercatcoe.c 
   src/ethercatconfig.c 
@@ -23,11 +21,19 @@ ADD_LIBRARY(soem
   src/ethercatdc.c
 ) 
 
-link_libraries( pthread)
-
-include_directories(
-  src
+ADD_LIBRARY(soemShared SHARED
+  src/ethercatbase.c 
+  src/ethercatcoe.c 
+  src/ethercatconfig.c 
+  src/ethercatfoe.c 
+  src/ethercatsoe.c 
+  src/ethercatmain.c 
+  src/ethercatprint.c 
+  src/nicdrv.c 
+  src/ethercatdc.c
 )
+SET_TARGET_PROPERTIES(soemShared PROPERTIES OUTPUT_NAME "soem")
+
 
 SET(SOEM_HEADERS
   src/ethercatbase.h
@@ -52,5 +58,5 @@ ENDMACRO(INSTALL_HEADERS_WITH_DIRECTORY)
 
 INSTALL_HEADERS_WITH_DIRECTORY(SOEM_HEADERS)
 
-INSTALL(TARGETS soem LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
+INSTALL(TARGETS soem soemShared LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
 

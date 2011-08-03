@@ -11,3 +11,4 @@ include/soem/src/ethercatsoe.h
 include/soem/src/ethercattype.h
 include/soem/src/nicdrv.h
 lib/libsoem.a
+lib/libsoem.so
